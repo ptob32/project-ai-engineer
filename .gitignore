@@ -1,0 +1,12 @@
+# ignore logs
+*.log
+
+# ignore temp files
+*.tmp 
+
+# ignore IDE stuff
+venv/
+.venv/
+
+# Ignore OS junk
+.DS_Store
