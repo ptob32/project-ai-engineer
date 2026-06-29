@@ -1,12 +1,20 @@
-# ignore logs
-*.log
-
-# ignore temp files
-*.tmp 
-
-# ignore IDE stuff
-venv/
+# Virtual environment
 .venv/
 
-# Ignore OS junk
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# VS Code (optional)
+.vscode/
+
+# OS files
 .DS_Store
+Thumbs.db
