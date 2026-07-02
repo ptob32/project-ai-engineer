@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "AI engineering learning project focused on production-style Python, data engineering, and AI systems."
 readme = "README.md"
 requires-python = ">=3.12"
-dependencies = []
+dependencies = ["python-dotenv>=1.0"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
