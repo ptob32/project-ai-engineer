@@ -21,3 +21,6 @@ __pycache__/
 Thumbs.db
 
 *.egg-info/
+
+# Application logs
+logs/
