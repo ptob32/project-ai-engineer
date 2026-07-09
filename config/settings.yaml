@@ -1,0 +1,11 @@
+application:
+  name: Enterprise AI Platform
+  version: 0.1
+
+logging:
+  level: INFO
+  log_file: logs/app.log
+
+paths:
+  data: data
+  output: output

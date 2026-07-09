@@ -1,0 +1,9 @@
+colorama==0.4.6
+-e git+https://github.com/ptob32/project-ai-engineer@25566225091f30f8c73e7d873447ffaecfe3b152#egg=enterprise_ai_platform
+iniconfig==2.3.0
+packaging==26.2
+pluggy==1.6.0
+Pygments==2.20.0
+pytest==9.1.1
+python-dotenv==1.2.2
+PyYAML==6.0.3
