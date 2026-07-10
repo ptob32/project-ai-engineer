@@ -1,30 +1,33 @@
 from pathlib import Path
+from typing import Any
 
 import yaml
+from dotenv import load_dotenv
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
-
 CONFIG_FILE = PROJECT_ROOT / "config" / "settings.yaml"
+ENV_FILE = PROJECT_ROOT / ".env"
 
 
-def load_config():
-    """Load the application configuration from YAML."""
+def load_config() -> dict[str, Any]:
+    """Load application configuration from YAML and environment variables."""
+
+    load_dotenv(ENV_FILE)
+
     with CONFIG_FILE.open("r", encoding="utf-8") as file:
-        return yaml.safe_load(file)
+        config = yaml.safe_load(file) or {}
 
-# from dataclasses import dataclass
-# import os
+    config.setdefault("environment", {})
+    config["environment"]["name"] = os.getenv("APP_ENV", "development")
+    config["environment"]["database_url"] = os.getenv(
+        "DATABASE_URL",
+        "sqlite:///data/app.db",
+    )
 
-# from dotenv import load_dotenv
+    config.setdefault("logging", {})
+    config["logging"]["level"] = os.getenv(
+        "LOG_LEVEL",
+        config["logging"].get("level", "INFO"),
+    )
 
-# # Load variables from .env (if present)
-# load_dotenv()
-
-
-# @dataclass(frozen=True)
-# class Settings:
-#     APP_NAME: str = os.getenv("APP_NAME", "Enterprise AI Platform")
-#     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
-
-
-# settings = Settings()
+    return config
