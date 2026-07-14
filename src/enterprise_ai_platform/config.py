@@ -1,24 +1,33 @@
-"""
-Central configuration for the Enterprise AI Platform.
+from pathlib import Path
+from typing import Any
 
-All application configuration should be accessed through the
-Settings object rather than reading environment variables
-directly throughout the codebase.
-"""
-
-from dataclasses import dataclass
-import os
-
+import yaml
 from dotenv import load_dotenv
 
-# Load variables from .env (if present)
-load_dotenv()
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+CONFIG_FILE = PROJECT_ROOT / "config" / "settings.yaml"
+ENV_FILE = PROJECT_ROOT / ".env"
 
 
-@dataclass(frozen=True)
-class Settings:
-    APP_NAME: str = os.getenv("APP_NAME", "Enterprise AI Platform")
-    LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
+def load_config() -> dict[str, Any]:
+    """Load application configuration from YAML and environment variables."""
 
+    load_dotenv(ENV_FILE)
 
-settings = Settings()
+    with CONFIG_FILE.open("r", encoding="utf-8") as file:
+        config = yaml.safe_load(file) or {}
+
+    config.setdefault("environment", {})
+    config["environment"]["name"] = os.getenv("APP_ENV", "development")
+    config["environment"]["database_url"] = os.getenv(
+        "DATABASE_URL",
+        "sqlite:///data/app.db",
+    )
+
+    config.setdefault("logging", {})
+    config["logging"]["level"] = os.getenv(
+        "LOG_LEVEL",
+        config["logging"].get("level", "INFO"),
+    )
+
+    return config

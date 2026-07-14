@@ -21,3 +21,15 @@ Sprint 2: Professional Python Project Structure
 python -m venv .venv
 source .venv/Scripts/activate
 pip install -e .
+
+## Configuration
+
+Create a local configuration file by copying the template:
+
+```bash
+cp .env.example .env
+```
+
+On Windows, you can simply copy the file in File Explorer and rename it to `.env`.
+
+Then edit `.env` and provide the appropriate values for your local environment. The `.env` file is intentionally excluded from Git because it may contain secrets such as API keys and passwords.
